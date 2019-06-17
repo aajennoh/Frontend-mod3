@@ -1,37 +1,37 @@
 <html>
-    <head>
-        <title>Google Map</title>
-        <meta name="viewport" content="initial-scale=1.0">
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="index.css">     
-    </head>    
-    <body>
-        <div id="latclicked"></div>
-        <div id="longclicked"></div>
-        
-        <div id="latmoved"></div>
-        <div id="longmoved"></div>
-        
-        <div>
-            <div id="map"></div>
-        </div>
-        <form id="submitForm">
-          Description: <br>
-          <input type="text" name="firstname">
-          <br>
-          Photo URL: <br>
-          <input type="text" name="lastname">
-          <br>
-          Latitude: <br>
-          <input id="lat" type="text" name="latitude">
-          <br>
-          Longitude: <br>
-          <input id="long" type="text" name="longitude">
-          <br><br>
-          <input type="submit" value="Submit">
-        </form> 
-        
-        <script type="text/javascript" src="index.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdH2tFRqQ5bX0oDCuvsyGJxUuWc-zr14I&callback=initMap" async defer></script>
-    </body>    
+  <head>
+    <title>Google Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="index.css">     
+  </head>
+
+  <body>
+    <div id="latclicked"></div>
+    <div id="longclicked"></div>
+    <div id="latmoved"></div>
+    <div id="longmoved"></div>
+    <div>
+      <div id="map"></div>
+    </div>
+    
+    <form id="submitForm">
+      Description: <br>
+      <input type="text" name="firstname">
+      <br>
+      Photo URL: <br>
+      <input type="text" name="lastname">
+      <br>
+      Latitude: <br>
+      <input id="lat" type="text" name="latitude">
+      <br>
+      Longitude: <br>
+      <input id="long" type="text" name="longitude">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
+    
+    <script type="text/javascript" src="index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOURRRKEYYYYYYYYY&callback=initMap" async defer></script>
+  </body>    
 </html>
