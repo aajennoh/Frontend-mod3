@@ -1,0 +1,8 @@
+#map { 
+	height: 75%;
+
+}          
+
+#latclicked, #longclicked, #latmoved, #longmoved {
+	display: none;
+}
