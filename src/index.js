@@ -47,3 +47,5 @@ function initMap() {
         locations.push({lat: marker.position.lat(), lng: marker.position.lng()});
     });
 }
+
+//
