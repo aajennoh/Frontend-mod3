@@ -18,6 +18,7 @@ let submitForm = document.querySelector('#submit-form')
 let currentFile = null
 const mapDiv = document.querySelector('#map')
 const viewCard = document.querySelector('.w3-card-4')
+const logoutButton = document.querySelector('#logout-button')
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
@@ -38,7 +39,7 @@ function initMap() {
             zoom: 2,
             disableDoubleClickZoom: true 
         });
-         
+
         var markers = locations.forEach(function(location){
             var newMark = new google.maps.Marker({
                 position: location,
@@ -89,6 +90,14 @@ function renderCard(){
         </div>`
 }
 
+function logout(){
+    alert("You are now logged out.")
+    currentUser = null
+    currentUsername = null
+    currentUseremail = null
+    initMap()
+}
+
 //EVENT LISTENERS
 mapDiv.addEventListener('click', function(event) {
     if (event.target.tagName === 'AREA'){
@@ -117,6 +126,8 @@ submitForm.addEventListener('submit', function(event) {
 })
 
 loginForm.addEventListener("submit", login)
+
+logoutButton.addEventListener('click', logout)
 
 //FETCHES
 function sendPhotoData(response){
@@ -161,6 +172,8 @@ function login(e){
         initMap()
     })
 }
+
+
 
 
 
