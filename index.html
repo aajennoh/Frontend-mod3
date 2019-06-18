@@ -9,26 +9,39 @@
   </head>
 
   <body>
-    <div id="latclicked"></div>
-    <div id="longclicked"></div>
-    <div id="latmoved"></div>
-    <div id="longmoved"></div>
-    <div>
-      <div id="map"></div>
-      <div id="card" style="z-index: 2; position: absolute; margin-left: 40%; margin-right: 40%; margin-top: -30%;">
+    <div id="logged-in">
+      <div id="latclicked"></div>
+      <div id="longclicked"></div>
+      <div id="latmoved"></div>
+      <div id="longmoved"></div>
+      <div>
+        <div id="map"></div>
+        <div id="card" style="z-index: 2; position: absolute; margin-left: 40%; margin-right: 40%; margin-top: -30%;">
+        </div>
+        </div>
       </div>
-      </div>
+      <form id="submit-form">
+        Where are you?<br>
+        <input type="text" name=""><br>
+        Upload a Photo!<br>
+        <input type="file" id="file-upload"name=""><br>
+        Caption:<br>
+        <input type="text" name="caption"><br>
+        <input type="submit" value="Submit"><br>
+      </form> 
     </div>
-    <form id="submit-form">
-      Where are you?<br>
-      <input type="text" name=""><br>
-      Upload a Photo!<br>
-      <input type="file" id="file-upload"name=""><br>
-      Caption:<br>
-      <input type="text" name="caption"><br>
-      <input type="submit" value="Submit"><br>
-    </form> 
-    
+    <div id="not-logged-in">
+      <form id="login-form">
+        Please Sign Up/Login:
+        <br>
+        Name:<br>
+        <input id="username" type="text" name=""><br>
+        Email:<br>
+        <input id="useremail" type="email" name="caption"><br>
+        <input type="submit" value="Submit"><br>
+      </form> 
+    </div>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="secrets.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
