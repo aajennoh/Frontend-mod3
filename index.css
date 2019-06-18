@@ -6,6 +6,7 @@
 	display: none;
 }
 
+
 .photo {
     height: auto;
     width: 100%;
@@ -13,4 +14,7 @@
 
 #card {
     background-color: white;
+
+#submitForm {
+	display:none;
 }
