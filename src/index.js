@@ -43,7 +43,8 @@ function initMap() {
             position: event.latLng, 
             map: map, 
             title: event.latLng.lat()+', '+event.latLng.lng()
-        });
+        }); 
+        $("#submitForm").slideDown();
         locations.push({lat: marker.position.lat(), lng: marker.position.lng()});
     });
 }
