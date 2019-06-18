@@ -1,3 +1,4 @@
+/*IDS*/
 #map { 
 	height: 75%;
 }          
@@ -6,16 +7,16 @@
 	display: none;
 }
 
-
-.photo {
-    height: auto;
-    width: 100%;
-}
-
 #card {
     background-color: white;
 }
 
 #submit-form {
 	display: none;
+}
+
+/*CLASSES*/
+.photo {
+    height: auto;
+    width: 100%;
 }
