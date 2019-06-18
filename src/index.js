@@ -78,8 +78,8 @@ function renderCard(){
         </div>`
 }
 
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/aajennoh/upload'
-const CLOUDINARY_UPLOAD_PRESET = 'd02xpqpf'
+const CLOUDINARY_URL = `${CLOUDINARYURL}`
+const CLOUDINARY_UPLOAD_PRESET = `${PRESET}`
 let fileUpload = document.querySelector('#file-upload')
 let submitForm = document.querySelector('#submit-form')
 let currentFile = null
