@@ -14,7 +14,8 @@
 
 #card {
     background-color: white;
+}
 
-#submitForm {
-	display:none;
+#submit-form {
+	display: none;
 }

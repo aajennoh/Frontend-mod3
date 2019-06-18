@@ -44,7 +44,7 @@ function initMap() {
             map: map, 
             title: event.latLng.lat()+', '+event.latLng.lng()
         }); 
-        $("#submitForm").slideDown();
+        $("#submit-form").slideDown();
         locations.push({lat: marker.position.lat(), lng: marker.position.lng()});
     });
 }
