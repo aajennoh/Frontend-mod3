@@ -48,8 +48,31 @@ function initMap() {
     });
 }
 
-//
 const googleApi = document.createElement('script')
 googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`
 document.body.appendChild(googleApi)
 
+// event listener for marker click
+const mapDiv = document.querySelector('#map')
+const viewCard = document.querySelector('.w3-card-4')
+mapDiv.addEventListener('click', function(event) {
+    if (event.target.tagName === 'AREA'){
+        renderCard()
+    }
+})
+
+function renderCard(){
+    let cardInnerHTML = document.querySelector('#card')
+    cardInnerHTML.innerHTML = ''
+    cardInnerHTML.innerHTML = 
+        `<div class="w3-card-4">
+            <div class="top-border">
+                <p style="display: inline;">Latlng</p>
+                <button type="button" style="float: right;">x</button>
+            </div>
+            <img class="photo" src="https://cdn.eso.org/images/screen/eso1436a.jpg" alt="Alps">
+            <div class="w3-container w3-center">
+                <p>Hello</p>
+            </div>
+        </div>`
+}
