@@ -5,3 +5,7 @@
 #latclicked, #longclicked, #latmoved, #longmoved {
 	display: none;
 }
+
+#submitForm {
+	display:none;
+}
