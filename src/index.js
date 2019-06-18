@@ -100,9 +100,23 @@ submitForm.addEventListener('submit', function(event) {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: formData
+    }).then(sendPhotoData)
+})
+
+
+function sendPhotoData(response){
+    let responseData = response.data.secure_url
+    let data = {'name': responseData};
+    fetch("http://localhost:3000/api/v1/photos", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
     }).then(function(response){
         console.log(response)
     }).catch(function(error) {
         console.error(error)
     })
-})
+
+}
