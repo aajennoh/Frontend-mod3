@@ -4,6 +4,7 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="index.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>   
   </head>
 
@@ -22,12 +23,13 @@
       Where are you?<br>
       <input type="text" name=""><br>
       Upload a Photo!<br>
-      <input type="file" name=""><br>
+      <input type="file" id="file-upload"name=""><br>
       Caption:<br>
       <input type="text" name="caption"><br>
       <input type="submit" value="Submit"><br>
     </form> 
     
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="secrets.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
   </body>    

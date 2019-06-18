@@ -77,3 +77,46 @@ function renderCard(){
             </div>
         </div>`
 }
+
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/aajennoh/upload'
+const CLOUDINARY_UPLOAD_PRESET = 'd02xpqpf'
+let fileUpload = document.querySelector('#file-upload')
+let submitForm = document.querySelector('#submit-form')
+let currentFile = null
+fileUpload.addEventListener('change', function(event){
+    currentFile = event
+})
+
+submitForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    let file = currentFile.target.files[0];
+    let formData = new FormData();
+    formData.append('file', file)
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+    axios({
+        url: CLOUDINARY_URL,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+    }).then(sendPhotoData)
+})
+
+
+function sendPhotoData(response){
+    let responseData = response.data.secure_url
+    let data = {'name': responseData};
+    fetch("http://localhost:3000/api/v1/photos", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(function(response){
+        console.log(response)
+    }).catch(function(error) {
+        console.error(error)
+    })
+
+}
