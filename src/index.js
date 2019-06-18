@@ -49,3 +49,7 @@ function initMap() {
 }
 
 //
+const googleApi = document.createElement('script')
+googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`
+document.body.appendChild(googleApi)
+
