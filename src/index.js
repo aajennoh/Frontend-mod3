@@ -90,13 +90,6 @@ function renderCard(){
         </div>`
 }
 
-function logout(){
-    alert("You are now logged out.")
-    currentUser = null
-    currentUsername = null
-    currentUseremail = null
-    initMap()
-}
 
 //EVENT LISTENERS
 mapDiv.addEventListener('click', function(event) {
@@ -173,8 +166,20 @@ function login(e){
     })
 }
 
-
-
-
+function logout(){
+    alert("You are now logged out.")
+    
+    fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`, {
+        method: 'DELETE'
+    })
+    
+    .then(function(){
+        currentUser = null
+        currentUsername = null
+        currentUseremail = null
+        initMap()
+    })
+}
+    
 
 
