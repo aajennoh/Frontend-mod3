@@ -119,7 +119,10 @@ submitForm.addEventListener('submit', function(event) {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: formData
-    }).then(sendPhotoData)
+    }).then(response => {
+        updateLocation()
+        sendPhotoData(response)
+    })
 })
 
 loginForm.addEventListener("submit", login)
@@ -129,9 +132,10 @@ logoutButton.addEventListener('click', logout)
 //FETCHES
 function sendPhotoData(response){
     let responseData = response.data.secure_url
-    let data = {'name': responseData,
-    'description': captionInput.value
-    //need to put user_id and location_id    
+    let data = {name: responseData,
+    description: captionInput.value,
+    user_id: currentUser.id,
+    location_id: currentLocation.id
     };
     fetch("http://localhost:3000/api/v1/photos", {
         method: 'POST',
@@ -139,10 +143,6 @@ function sendPhotoData(response){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    }).then(function(response){
-        console.log(response)
-    }).catch(function(error) {
-        console.error(error)
     })
 }
 
@@ -162,9 +162,28 @@ function createLocation(){
             user_id: currentUser.id
         })
     }).then(response => response.json())
-    .then(console.log)
+    .then(data => {
+        currentLocation = data
+    })
 }
 
+function updateLocation(){
+    fetch(`http://localhost:3000/api/v1/locations/${currentLocation.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin" : "*", 
+            "Access-Control-Allow-Credentials" : true, 
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: locationInput.value,
+            latitude: currentLat,
+            longitude: currentLong,
+            user_id: currentUser.id
+        })
+    })
+}
 
 
 function login(e){
@@ -208,6 +227,7 @@ function logout(){
         initMap()
     })
 }
-    
+
+
 
 
