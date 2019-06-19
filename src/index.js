@@ -9,6 +9,7 @@ let currentUsername = null;
 let currentUseremail = null;
 let currentLat = null;
 let currentLong = null;
+let currentLocation = null;
 const loginForm = document.querySelector("#login-form")
 const mapAndSubmit = document.querySelector("#logged-in")
 const CLOUDINARY_URL = `${CLOUDINARYURL}`
@@ -19,6 +20,8 @@ let currentFile = null
 const mapDiv = document.querySelector('#map')
 const viewCard = document.querySelector('.w3-card-4')
 const logoutButton = document.querySelector('#logout-button')
+const captionInput = document.querySelector('#caption-input')
+const locationInput = document.querySelector('#location-input')
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
@@ -64,6 +67,7 @@ function initMap() {
             }); 
             $("#submit-form").slideDown();
             locations.push({lat: marker.position.lat(), lng: marker.position.lng()});
+            createLocation();
             });
     } else {
         loginForm.style.display = "block"
@@ -125,7 +129,10 @@ logoutButton.addEventListener('click', logout)
 //FETCHES
 function sendPhotoData(response){
     let responseData = response.data.secure_url
-    let data = {'name': responseData};
+    let data = {'name': responseData,
+    'description': captionInput.value
+    //need to put user_id and location_id    
+    };
     fetch("http://localhost:3000/api/v1/photos", {
         method: 'POST',
         headers: {
@@ -138,6 +145,27 @@ function sendPhotoData(response){
         console.error(error)
     })
 }
+
+function createLocation(){
+    fetch("http://localhost:3000/api/v1/locations", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin" : "*", 
+            "Access-Control-Allow-Credentials" : true, 
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: locationInput,
+            latitude: currentLat,
+            longitude: currentLong,
+            user_id: currentUser.id
+        })
+    }).then(response => response.json())
+    .then(console.log)
+}
+
+
 
 function login(e){
     e.preventDefault();
