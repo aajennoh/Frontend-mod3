@@ -1,0 +1,38 @@
+.w3-card-4 {
+	text-align: center;
+	border: 5px dotted black;
+	background: #99e5ca;
+	border-radius: 10%;
+}
+
+.photo {
+    height: auto;
+    width: 100%;
+}
+
+div.top-border {
+	text-align: left;
+	padding-top: 5%;
+	padding-right: 0;
+	padding-bottom: 5%;
+	padding-left: 5%;
+}
+
+p.loc-description {
+	text-align: right;
+	padding-right: 5%;
+	padding-top: 5%;
+}
+
+#closeCardButton {
+	float:right;
+	border: 2px dotted black;
+	border-radius: 10%;
+	background-color: #eaf2ec;
+}
+
+#closeCardButton:hover {
+	border: 2px dotted #eaf2ec;
+	color: #eaf2ec;
+	background: black;
+}

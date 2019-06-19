@@ -1,0 +1,22 @@
+#not-logged-in {
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 15%;
+	max-width: 25%;
+	border: 5px dotted black;
+	margin-bottom: 0%;
+	padding: 2%;
+	background: #99e5ca;
+	border-radius: 10%;
+}
+
+.submit {
+	border: 2px dotted black;
+	border-radius: 10%;
+}
+
+.submit:hover {
+	border: 2px dotted white;
+	color: white;
+	background: black;
+}

@@ -4,26 +4,33 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="index.css">  
+    <link rel="stylesheet" type="text/css" href="login.css">  
+    <link rel="stylesheet" type="text/css" href="submitForm.css">  
+    <link rel="stylesheet" type="text/css" href="card.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>   
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>  
+
   </head>
 
   <body>
     <div id="logged-in">
+     
       <ul>
         <li id="logout-button">Logout</li>
       </ul>         
+   
       <div id="latclicked"></div>
       <div id="longclicked"></div>
       <div id=  "latmoved"></div>
       <div id="longmoved"></div>
-      <div>
+      <div id="outer-div">
         <div id="map"></div>
-        <div id="card" style="z-index: 2; position: absolute; margin-left: 40%; margin-right: 40%; margin-top: -30%;">
+        <div id="card" style="z-index: 2; position: absolute; margin-left: 40%; margin-right: 40%; margin-top: -40%;">
         </div>
       </div>
       <form id="submit-form">
@@ -32,19 +39,20 @@
         Upload a Photo!<br>
         <input type="file" id="file-upload"name=""><br>
         Caption:<br>
-        <input type="text" id="caption-input" name="caption"><br>
-        <input type="submit" value="Submit"><br>
+        <input type="text" id="caption-input" name="caption"><br><br>
+        <input class="submit" type="submit" value="Submit"><br>
       </form> 
     </div>
     <div id="not-logged-in">
       <form id="login-form">
-        Please Sign Up/Login:
+        <h5>Please Sign Up/Login:</h5>
+        
         <br>
         Name:<br>
         <input id="username" type="text" name=""><br>
         Email:<br>
-        <input id="useremail" type="email" name="caption"><br>
-        <input type="submit" value="Submit"><br>
+        <input id="useremail" type="email" name="caption"><br><br>
+        <input class="submit" type="submit" value="Submit">
       </form> 
     </div>
 

@@ -7,7 +7,7 @@ let currentUseremail = null;
 let currentLat = null;
 let currentLong = null;
 let currentLocation = null;
-const loginForm = document.querySelector("#login-form")
+const loginForm = document.querySelector("#not-logged-in")
 const mapAndSubmit = document.querySelector("#logged-in")
 const CLOUDINARY_URL = `${CLOUDINARYURL}`
 const CLOUDINARY_UPLOAD_PRESET = `${PRESET}`
@@ -73,12 +73,12 @@ function renderCard(){
     cardInnerHTML.innerHTML = 
         `<div class="w3-card-4">
             <div class="top-border">
-                <p style="display: inline;">${currentLocation.name}</p>
-                <button id="closeCardButton" type="button" style="float: right;">x</button>
+                <p class="location-name"style="display: inline;">${currentLocation.name}</p>
+                <button id="closeCardButton" type="button">x</button>
             </div>
             <img class="photo" src="${currentLocation.photos[0].name}" alt="Alps">
             <div class="w3-container w3-center">
-                <p>${currentLocation.photos[0].description}</p>
+                <p class="loc-description">${currentLocation.photos[0].description}</p>
             </div>
         </div>`
 }

@@ -1,47 +1,56 @@
-/*IDS*/
+/*Body Stuff*/
+body {
+    font-family: 'Poppins', sans-serif !important;
+    background: #eaf2ec !important;
+}
+
+input {
+    border: 2px dotted black;
+    border-radius: 10%;
+}
+
+input, button:focus {
+    outline:0;
+}
+
 #map { 
 	height: 75%;
-}          
+}  
+
+#outer-div {
+     padding-top: 5%;
+     border-top: 5px dotted #333;
+
+}
 
 #latclicked, #longclicked, #latmoved, #longmoved {
-	display: none;
-}
+    display: none;
+}     
 
-#card {
-    background-color: white;
-}
-
-#submit-form {
-	display: none;
-}
+/*Navbar Stuff*/
 
 ul {
+    margin-top: 0 !important;
+    width: 100%;
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    height: 3em;
+    border-bottom: 5px dotted #99e5ca;
+    margin-bottom: 0 !important;
 }
 
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-  /* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #111;
-}
-
-/*CLASSES*/
-.photo {
+ul li {
+    float: right;
     height: auto;
-    width: 100%;
+    color: #99e5ca;
+    font-weight: bold;
+    padding: 0.5em;
 }
+
+ul li:hover {
+    color: #eaf2ec;
+}
+

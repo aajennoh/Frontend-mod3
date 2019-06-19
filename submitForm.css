@@ -1,0 +1,27 @@
+
+#submit-form {
+	display: none;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 5%;
+	max-width: 50%;
+	border: 5px dotted black;
+	margin-bottom: 0%;
+	padding: 2%;
+	background: #99e5ca;
+	border-radius: 10%;
+	font-size: 1.5em;
+}
+
+#logged-in {
+	padding: 0, 5%, 5%, 5%;
+	padding-bottom: 10%;
+}
+
+#file-upload {
+	border: none;
+	border-radius: 0;
+	left: 50%;
+	margin-left: 20%;
+}
+
