@@ -1,9 +1,6 @@
 //DECLARATIONS & ASSIGNMENTS
-var map;
-var locations = [
-    {lat: 1, lng: 1},
-    {lat: -43.99972, lng: 170.463352}
-]
+let map;
+let locations = null
 let currentUser = null;
 let currentUsername = null;
 let currentUseremail = null;
@@ -22,83 +19,75 @@ const viewCard = document.querySelector('.w3-card-4')
 const logoutButton = document.querySelector('#logout-button')
 const captionInput = document.querySelector('#caption-input')
 const locationInput = document.querySelector('#location-input')
+const cardInnerHTML = document.querySelector('#card')
+
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
-googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`
+googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=addLocationToArray`
 document.body.appendChild(googleApi)
 
 //MAP INIT
 function initMap() {
-    if(currentUser !== null) { 
-        mapAndSubmit.style.display = "block"
-        loginForm.style.display = "none"
-        var latitude = 0; 
-        var longitude = 0; 
-        var myLatLng = {lat: latitude, lng: longitude};
-        
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: myLatLng,
-            zoom: 2,
-            disableDoubleClickZoom: true 
-        });
+    let latitude = 0; 
+    let longitude = 0; 
+    let myLatLng = {lat: latitude, lng: longitude};
+    
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 2,
+        disableDoubleClickZoom: true 
+    });
 
-        var markers = locations.forEach(function(location){
-            var newMark = new google.maps.Marker({
-                position: location,
-                map: map,
-                title: location.lat + ', ' + location.lng
-            })
-        })
-
-        var marker = new google.maps.Marker({
-            position: myLatLng,
+    let markers = locations.forEach(function(location){
+        let newMark = new google.maps.Marker({
+            position: location,
             map: map,
-            title: latitude + ', ' + longitude 
-        });
-        
-        google.maps.event.addListener(map,'dblclick',function(event) {
-            currentLat = event.latLng.lat();
-            currentLong = event.latLng.lng();
-            var marker = new google.maps.Marker({
-                position: event.latLng, 
-                map: map, 
-                title: event.latLng.lat()+', '+event.latLng.lng()
-            }); 
-            $("#submit-form").slideDown();
-            locations.push({lat: marker.position.lat(), lng: marker.position.lng()});
-            createLocation();
-            });
-    } else {
-        loginForm.style.display = "block"
-        mapAndSubmit.style.display = "none"
-        console.log("no current user")
-    }
-}
+            title: location.lat + ', ' + location.lng
+        })
+    })
 
+    let marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: latitude + ', ' + longitude 
+    });
+    
+    google.maps.event.addListener(map,'dblclick',function(event) {
+        currentLat = event.latLng.lat();
+        currentLong = event.latLng.lng();
+        var marker = new google.maps.Marker({
+            position: event.latLng, 
+            map: map, 
+            title: event.latLng.lat()+', '+event.latLng.lng()
+        }); 
+        $("#submit-form").slideDown();
+        locations.push({lat: marker.position.lat(), lng: marker.position.lng()});
+        createLocation();
+        });
+}
 
 //HELPER METHODS
 function renderCard(){
-    let cardInnerHTML = document.querySelector('#card')
     cardInnerHTML.innerHTML = ''
     cardInnerHTML.innerHTML = 
         `<div class="w3-card-4">
             <div class="top-border">
-                <p style="display: inline;">Latlng</p>
-                <button type="button" style="float: right;">x</button>
+                <p style="display: inline;">${currentLocation.name}</p>
+                <button id="closeCardButton" type="button" style="float: right;">x</button>
             </div>
-            <img class="photo" src="https://cdn.eso.org/images/screen/eso1436a.jpg" alt="Alps">
+            <img class="photo" src="${currentLocation.photos[0].name}" alt="Alps">
             <div class="w3-container w3-center">
-                <p>Hello</p>
+                <p>${currentLocation.photos[0].description}</p>
             </div>
         </div>`
 }
 
-
 //EVENT LISTENERS
 mapDiv.addEventListener('click', function(event) {
     if (event.target.tagName === 'AREA'){
-        renderCard()
+        currentLocation = event.target
+        findLocation()
     }
 })
 
@@ -122,7 +111,13 @@ submitForm.addEventListener('submit', function(event) {
     }).then(response => {
         updateLocation()
         sendPhotoData(response)
+        submitForm.reset()
     })
+})
+
+cardInnerHTML.addEventListener('click', function(event) {
+    if (event.target.id === 'closeCardButton')
+    cardInnerHTML.innerHTML = ''
 })
 
 loginForm.addEventListener("submit", login)
@@ -130,12 +125,33 @@ loginForm.addEventListener("submit", login)
 logoutButton.addEventListener('click', logout)
 
 //FETCHES
+function addLocationToArray(){
+    locations = []
+    if(currentUser !== null) { 
+        mapAndSubmit.style.display = "block"
+        loginForm.style.display = "none"
+        fetch("http://localhost:3000/api/v1/locations")
+        .then(response => response.json())
+        .then(data => data.map(location => {
+            if (location.user.id === currentUser.id){
+                locations.push({lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)})
+            }
+            initMap()
+        }))
+    } else {
+        loginForm.style.display = "block"
+        mapAndSubmit.style.display = "none"
+    }
+}
+
+
 function sendPhotoData(response){
     let responseData = response.data.secure_url
-    let data = {name: responseData,
-    description: captionInput.value,
-    user_id: currentUser.id,
-    location_id: currentLocation.id
+    let data = {
+        name: responseData,
+        description: captionInput.value,
+        user_id: currentUser.id,
+        location_id: currentLocation.id
     };
     fetch("http://localhost:3000/api/v1/photos", {
         method: 'POST',
@@ -151,8 +167,6 @@ function createLocation(){
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin" : "*", 
-            "Access-Control-Allow-Credentials" : true, 
             'Accept': 'application/json'
         },
         body: JSON.stringify({
@@ -172,8 +186,6 @@ function updateLocation(){
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin" : "*", 
-            "Access-Control-Allow-Credentials" : true, 
             'Accept': 'application/json'
         },
         body: JSON.stringify({
@@ -182,6 +194,20 @@ function updateLocation(){
             longitude: currentLong,
             user_id: currentUser.id
         })
+    }).then(response => response.json())
+    .then(data => {
+        currentLocation = data
+        renderCard()
+    })
+}
+
+function findLocation(){
+    fetch("http://localhost:3000/api/v1/locations")
+    .then(response => response.json())
+    .then(data => data.find(location => location.latitude === currentLocation.title.split(', ')[0] && location.longitude === currentLocation.title.split(', ')[1]))
+    .then(loc => {
+        currentLocation = loc
+        renderCard()
     })
 }
 
@@ -197,8 +223,6 @@ function login(e){
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin" : "*", 
-            "Access-Control-Allow-Credentials" : true, 
             'Accept': 'application/json'
         },
         body: JSON.stringify({
@@ -209,7 +233,7 @@ function login(e){
     .then(res => res.json())
     .then(json => {
         currentUser = json;
-        initMap()
+        addLocationToArray()
     })
 }
 
@@ -224,10 +248,6 @@ function logout(){
         currentUser = null
         currentUsername = null
         currentUseremail = null
-        initMap()
+        addLocationToArray()
     })
 }
-
-
-
-
