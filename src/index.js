@@ -7,6 +7,7 @@ let currentUseremail = null;
 let currentLat = null;
 let currentLong = null;
 let currentLocation = null;
+let pos = null;
 const loginForm = document.querySelector("#not-logged-in")
 const mapAndSubmit = document.querySelector("#logged-in")
 const CLOUDINARY_URL = `${CLOUDINARYURL}`
@@ -21,6 +22,17 @@ const captionInput = document.querySelector('#caption-input')
 const locationInput = document.querySelector('#location-input')
 const cardInnerHTML = document.querySelector('#card')
 
+//ACCESS GEOCODE?
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+    })
+    console.log(pos)
+}
+
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
@@ -29,6 +41,7 @@ document.body.appendChild(googleApi)
 
 //MAP INIT
 function initMap() {
+    geolocateButton()
     let latitude = 0; 
     let longitude = 0; 
     let myLatLng = {lat: latitude, lng: longitude};
@@ -83,11 +96,33 @@ function renderCard(){
         </div>`
 }
 
+function geolocateButton(){
+    if(pos !== null){
+        let posDiv = document.querySelector("#currentLocButton");
+        posDiv.innerHTML = ""
+        let posButton = document.createElement("BUTTON")
+        posButton.innerText = "Use Current Location?"
+        posButton.className ="pos-button"
+        posDiv.appendChild(posButton)
+    }
+}
+
 //EVENT LISTENERS
 mapDiv.addEventListener('click', function(event) {
     if (event.target.tagName === 'AREA'){
         currentLocation = event.target
         findLocation()
+    }
+})
+
+document.querySelector("#currentLocButton").addEventListener("click", function(e){
+    if(e.target.tagName === "BUTTON"){
+        currentLat = pos.lat;
+        currentLong = pos.long;
+        createLocation()
+        addLocationToArray()
+        $("#submit-form").slideDown();
+
     }
 })
 
