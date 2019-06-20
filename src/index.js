@@ -4,9 +4,9 @@ let locations = null
 let currentUser = null;
 let currentUsername = null;
 let currentUseremail = null;
-let currentLat = null;
+let currentLat = 0;
 let currentLong = 0;
-let currentLocation = 0;
+let currentLocation = null;
 let pos = null;
 const loginForm = document.querySelector("#not-logged-in")
 const mapAndSubmit = document.querySelector("#logged-in")
@@ -74,7 +74,10 @@ function initMap() {
 
 //HELPER METHODS
 function findGeolocation(){
-    
+if(currentUser === null) {
+    loginForm.style.display = "block"
+    mapAndSubmit.style.display = "none"
+}
 if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
             pos = {
