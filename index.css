@@ -54,3 +54,14 @@ ul li:hover {
     color: #eaf2ec;
 }
 
+.pos-button {
+    border: 2px dotted black;
+    border-radius: 10%;
+    background-color: #99e5ca;
+}
+
+.pos-button:hover {
+    border: 2px dotted #99e5ca;
+    color: #99e5ca;
+    background: black;
+}

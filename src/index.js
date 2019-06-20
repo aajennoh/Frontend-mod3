@@ -28,7 +28,7 @@ const cardInnerHTML = document.querySelector('#card')
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
-googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=findGeolocation`
+googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=addLocationToArray`
 document.body.appendChild(googleApi)
 
 //MAP INIT
@@ -40,7 +40,7 @@ function initMap() {
     
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        zoom: 6,
+        zoom: 2,
         disableDoubleClickZoom: true 
     });
 
@@ -52,11 +52,11 @@ function initMap() {
         })
     })
 
-    let marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: latitude + ', ' + longitude 
-    });
+    // let marker = new google.maps.Marker({
+    //     position: myLatLng,
+    //     map: map,
+    //     title: latitude + ', ' + longitude 
+    // });
     
     google.maps.event.addListener(map,'dblclick',function(event) {
         currentLat = event.latLng.lat();
@@ -74,10 +74,6 @@ function initMap() {
 
 //HELPER METHODS
 function findGeolocation(){
-if(currentUser === null) {
-    loginForm.style.display = "block"
-    mapAndSubmit.style.display = "none"
-}
 if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
             pos = {
@@ -88,9 +84,9 @@ if (navigator.geolocation) {
             currentLong = pos.lng
         })
       console.log(pos)
-        setTimeout(function(){
-        addLocationToArray()
-        }, 6000)
+        // setTimeout(function(){
+        // addLocationToArray()
+        // }, 6000)
     }
 }
 
@@ -111,14 +107,12 @@ function renderCard(){
 }
 
 function geolocateButton(){
-    if(pos !== null){
         let posLi = document.querySelector("#currentLocButton");
         posLi.innerHTML = ""
         let posButton = document.createElement("BUTTON")
         posButton.innerText = "Use Current Location?"
         posButton.className ="pos-button"
         posLi.appendChild(posButton)
-    }
 }
 
 //EVENT LISTENERS
@@ -131,6 +125,8 @@ mapDiv.addEventListener('click', function(event) {
 
 document.querySelector("#currentLocButton").addEventListener("click", function(e){
     if(e.target.tagName === "BUTTON"){
+        e.preventDefault()
+        findGeolocation()
         console.log(pos)
         console.log(currentLat)
         console.log(currentLong)
