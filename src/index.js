@@ -84,9 +84,6 @@ if (navigator.geolocation) {
             currentLong = pos.lng
         })
       console.log(pos)
-        // setTimeout(function(){
-        // addLocationToArray()
-        // }, 6000)
     }
 }
 
@@ -174,6 +171,7 @@ logoutButton.addEventListener('click', logout)
 function addLocationToArray(){
     locations = []
     if(currentUser !== null) { 
+        initMap()
         mapAndSubmit.style.display = "block"
         loginForm.style.display = "none"
         fetch("http://localhost:3000/api/v1/locations")
