@@ -1,5 +1,4 @@
 function initMap() {
-    geolocateButton()
     let latitude = currentLat; 
     let longitude = currentLong; 
     let myLatLng = {lat: latitude, lng: longitude};

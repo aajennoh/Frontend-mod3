@@ -9,13 +9,9 @@ document.querySelector("#currentLocButton").addEventListener("click", function(e
     if(e.target.tagName === "BUTTON"){
         e.preventDefault()
         findGeolocation()
-        console.log(pos)
-        console.log(currentLat)
-        console.log(currentLong)
         createLocation()
         addLocationToArray()
         $("#submit-form").slideDown();
-
     }
 })
 

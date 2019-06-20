@@ -1,15 +1,22 @@
-function findGeolocation(){
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-            };
-            currentLat = pos.lat
-            currentLong = pos.lng
-        })
-        console.log(pos)
+async function findGeolocation(){
+    console.log("Hi")
+    if (navigator.geolocation) {
+        console.log("When???")
+        navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+                };
+                currentLat = pos.lat
+                currentLong = pos.lng
+            })
+
+        await setTimeout(function(){
+            console.log(currentLat, currentLong)
+         addMarker()
+      }, 7000)
     }
+
 }
 
 function renderCard(){
@@ -27,11 +34,11 @@ function renderCard(){
         </div>`
 }
 
-function geolocateButton(){
-        let posLi = document.querySelector("#currentLocButton");
-        posLi.innerHTML = ""
-        let posButton = document.createElement("BUTTON")
-        posButton.innerText = "Use Current Location?"
-        posButton.className ="pos-button"
-        posLi.appendChild(posButton)
+async function addMarker(){
+    console.log("Hello")
+    let marker = new google.maps.Marker({
+            position: {lat: currentLat, lng: currentLong}, 
+            map: map, 
+            title: currentLat +', '+ currentLong
+    });
 }
