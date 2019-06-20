@@ -10,16 +10,14 @@ async function findGeolocation(){
                 currentLat = pos.lat
                 currentLong = pos.lng
             })
-
         await setTimeout(function(){
-            console.log(currentLat, currentLong)
          addMarker()
       }, 7000)
     }
-
 }
 
-function renderCard(){
+function renderCard(currentLocation){
+    console.log(currentLocation)
     cardInnerHTML.innerHTML = ''
     cardInnerHTML.innerHTML = 
         `<div class="w3-card-4">
@@ -42,3 +40,24 @@ async function addMarker(){
             title: currentLat +', '+ currentLong
     });
 }
+
+function uploadFile(){
+    console.log("kldshfah")
+    let file = currentFile.target.files[0];
+    let formData = new FormData();
+    formData.append('file', file)
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+    console.log("supppppp")
+    return formData
+}
+
+function getCurrentLocationFromClick(e){
+    if(e.target.tagName === "BUTTON"){
+        e.preventDefault()
+        findGeolocation()
+        createLocation()
+        addLocationToArray()
+        $("#submit-form").slideDown();
+    }
+}
+

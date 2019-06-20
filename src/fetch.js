@@ -18,7 +18,6 @@ function addLocationToArray(){
     }
 }
 
-
 function sendPhotoData(response){
     let responseData = response.data.secure_url
     let data = {
@@ -71,7 +70,8 @@ function updateLocation(){
     }).then(response => response.json())
     .then(data => {
         currentLocation = data
-        renderCard()
+        console.log(data)
+        renderCard(data)
     })
 }
 
@@ -81,7 +81,8 @@ function findLocation(){
     .then(data => data.find(location => location.latitude === currentLocation.title.split(', ')[0] && location.longitude === currentLocation.title.split(', ')[1] && location.user.id === currentUser.id))
     .then(loc => {
         currentLocation = loc
-        renderCard()
+        console.log(loc)
+        renderCard(loc)
     })
 }
 
@@ -111,13 +112,29 @@ function login(e){
     })
 }
 
+function axiosFetch(data){
+    console.log("hey")
+    return axios({
+        url: CLOUDINARY_URL,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    }).then(response => {
+        console.log(response)
+        updateLocation()
+        sendPhotoData(response)
+        submitForm.reset()
+    })
+}
+
 function logout(){
     alert("You are now logged out.")
     
     fetch(`http://localhost:3000/api/v1/users/${currentUser.id}`, {
         method: 'DELETE'
     })
-    
     .then(function(){
         currentUser = null
         currentUsername = null

@@ -5,15 +5,7 @@ mapDiv.addEventListener('click', function(event) {
     }
 })
 
-document.querySelector("#currentLocButton").addEventListener("click", function(e){
-    if(e.target.tagName === "BUTTON"){
-        e.preventDefault()
-        findGeolocation()
-        createLocation()
-        addLocationToArray()
-        $("#submit-form").slideDown();
-    }
-})
+document.querySelector("#currentLocButton").addEventListener("click", getCurrentLocationFromClick)
 
 fileUpload.addEventListener('change', function(event){
     currentFile = event
@@ -21,22 +13,8 @@ fileUpload.addEventListener('change', function(event){
 
 submitForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    let file = currentFile.target.files[0];
-    let formData = new FormData();
-    formData.append('file', file)
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-    axios({
-        url: CLOUDINARY_URL,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: formData
-    }).then(response => {
-        updateLocation()
-        sendPhotoData(response)
-        submitForm.reset()
-    })
+    let formData = uploadFile();
+    axiosFetch(formData);
 })
 
 cardInnerHTML.addEventListener('click', function(event) {
