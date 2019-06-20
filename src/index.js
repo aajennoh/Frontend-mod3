@@ -5,8 +5,8 @@ let currentUser = null;
 let currentUsername = null;
 let currentUseremail = null;
 let currentLat = null;
-let currentLong = null;
-let currentLocation = null;
+let currentLong = 0;
+let currentLocation = 0;
 let pos = null;
 const loginForm = document.querySelector("#not-logged-in")
 const mapAndSubmit = document.querySelector("#logged-in")
@@ -23,32 +23,24 @@ const locationInput = document.querySelector('#location-input')
 const cardInnerHTML = document.querySelector('#card')
 
 //ACCESS GEOCODE?
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-    })
-    console.log(pos)
-}
+
 
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
-googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=addLocationToArray`
+googleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=findGeolocation`
 document.body.appendChild(googleApi)
 
 //MAP INIT
 function initMap() {
     geolocateButton()
-    let latitude = 0; 
-    let longitude = 0; 
+    let latitude = currentLat; 
+    let longitude = currentLong; 
     let myLatLng = {lat: latitude, lng: longitude};
     
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        zoom: 2,
+        zoom: 6,
         disableDoubleClickZoom: true 
     });
 
@@ -81,6 +73,25 @@ function initMap() {
 }
 
 //HELPER METHODS
+function findGeolocation(){
+    
+if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            currentLat = pos.lat
+            currentLong = pos.lng
+        })
+      console.log(pos)
+        setTimeout(function(){
+        addLocationToArray()
+        }, 6000)
+    }
+}
+
+
 function renderCard(){
     cardInnerHTML.innerHTML = ''
     cardInnerHTML.innerHTML = 
@@ -98,12 +109,12 @@ function renderCard(){
 
 function geolocateButton(){
     if(pos !== null){
-        let posDiv = document.querySelector("#currentLocButton");
-        posDiv.innerHTML = ""
+        let posLi = document.querySelector("#currentLocButton");
+        posLi.innerHTML = ""
         let posButton = document.createElement("BUTTON")
         posButton.innerText = "Use Current Location?"
         posButton.className ="pos-button"
-        posDiv.appendChild(posButton)
+        posLi.appendChild(posButton)
     }
 }
 
@@ -117,8 +128,9 @@ mapDiv.addEventListener('click', function(event) {
 
 document.querySelector("#currentLocButton").addEventListener("click", function(e){
     if(e.target.tagName === "BUTTON"){
-        currentLat = pos.lat;
-        currentLong = pos.long;
+        console.log(pos)
+        console.log(currentLat)
+        console.log(currentLong)
         createLocation()
         addLocationToArray()
         $("#submit-form").slideDown();
