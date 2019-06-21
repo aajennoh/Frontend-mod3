@@ -142,3 +142,13 @@ function logout(){
         addLocationToArray()
     })
 }
+
+function fetchAllUsers(){
+    fetch("http://localhost:3000/api/v1/users")
+    .then(response => response.json())
+    .then(data => {
+        return data.filter(user => user.id !== currentUser.id)
+    }).then(users => friendList(users))
+}
+
+

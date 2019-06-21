@@ -61,3 +61,22 @@ function getCurrentLocationFromClick(e){
     }
 }
 
+function friendList(users){
+    friendsList.innerHTML =""
+        // friendsList.innerHTML = ""
+        users.map(function(user){
+
+            friendsList.innerHTML += `
+            <option value="${user.id}">${user.name}</option>
+            `
+        })
+}
+// function filterOutCurrentUser(data){
+//     users = []
+//     data.forEach(function(user){
+//         if (user.id !== currentUser.id){
+//             users.push(user)
+//         }
+//     })
+//     return users
+// }

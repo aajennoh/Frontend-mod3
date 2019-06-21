@@ -22,6 +22,7 @@ const logoutButton = document.querySelector('#logout-button')
 const captionInput = document.querySelector('#caption-input')
 const locationInput = document.querySelector('#location-input')
 const cardInnerHTML = document.querySelector('#card')
+const friendsList = document.querySelector("#select-friend")
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')
