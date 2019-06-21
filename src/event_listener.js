@@ -26,4 +26,6 @@ loginForm.addEventListener("submit", login)
 
 logoutButton.addEventListener('click', logout)
 
-// friendsList.addEventListener("change", )
+friendsList.addEventListener("change", fetchSpecificUser)
+
+myMap.addEventListener("click", backToMyMap)
