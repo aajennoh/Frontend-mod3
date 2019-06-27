@@ -25,6 +25,8 @@ const locationInput = document.querySelector('#location-input')
 const cardInnerHTML = document.querySelector('#card')
 const friendsList = document.querySelector("#select-friend")
 const myMap = document.querySelector(".my-button")
+const loginBrand = document.querySelector("#login-brand")
+const p = document.querySelector("p")
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')

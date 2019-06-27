@@ -4,6 +4,8 @@ function addLocationToArray(){
         initMap()
         mapAndSubmit.style.display = "block"
         loginForm.style.display = "none"
+        loginBrand.style.display = "none"
+        p.style.display = "none"
         fetch("http://localhost:3000/api/v1/locations")
         .then(response => response.json())
         .then(data => data.map(location => {
@@ -14,6 +16,7 @@ function addLocationToArray(){
         }))
     } else {
         loginForm.style.display = "block"
+        loginBrand.style.display = "block"
         mapAndSubmit.style.display = "none"
     }
 }
