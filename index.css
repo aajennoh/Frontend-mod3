@@ -80,9 +80,9 @@ ul li:hover {
 #login-brand {
     color: #333;
     position: fixed;
-    top: -1;
+    top: 10%;
     text-align: center;
-    left: 28%;
+    left: 35%;
     font-size: 5em;
 }
 
@@ -90,6 +90,6 @@ ul li:hover {
     color: #333;
     position: fixed;
     text-align: center;
-    left: 26%;
+    left: 32%;
     padding: 30px;
 }

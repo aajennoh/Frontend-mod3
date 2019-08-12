@@ -69,5 +69,6 @@ function backToMyMap(){
     loggedInUser.locations.forEach(location => {
         locations.push({lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)})
     })
+    friendsList.value = null;
     initMap();
 }
