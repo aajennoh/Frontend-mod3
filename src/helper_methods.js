@@ -1,7 +1,5 @@
 async function findGeolocation(){
-    console.log("Hi")
     if (navigator.geolocation) {
-        console.log("When???")
         navigator.geolocation.getCurrentPosition(function(position) {
             pos = {
                 lat: position.coords.latitude,
@@ -11,13 +9,12 @@ async function findGeolocation(){
                 currentLong = pos.lng
             })
         await setTimeout(function(){
-         addMarker()
-      }, 7000)
+            addMarker()
+        }, 7000)
     }
 }
 
 function renderCard(currentLocation){
-    console.log(currentLocation)
     cardInnerHTML.innerHTML = ''
     cardInnerHTML.innerHTML = 
         `<div class="w3-card-4">
@@ -42,12 +39,10 @@ async function addMarker(){
 }
 
 function uploadFile(){
-    console.log("kldshfah")
     let file = currentFile.target.files[0];
     let formData = new FormData();
     formData.append('file', file)
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-    console.log("supppppp")
     return formData
 }
 
@@ -61,3 +56,19 @@ function getCurrentLocationFromClick(e){
     }
 }
 
+function friendList(users){
+    friendsList.innerHTML = "<option disabled selected>Select a friend</option>"
+    users.map(function(user){
+        friendsList.innerHTML += `<option value="${user.id}">${user.name}</option>`
+    })
+}
+
+function backToMyMap(){
+    locations = []
+    currentUser = loggedInUser;
+    loggedInUser.locations.forEach(location => {
+        locations.push({lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)})
+    })
+    friendsList.value = null;
+    initMap();
+}

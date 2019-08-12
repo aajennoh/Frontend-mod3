@@ -9,6 +9,7 @@ let currentLong = 0;
 let currentLocation = null;
 let pos = null;
 let currentFile = null
+let loggedInUser = null
 
 const submitForm = document.querySelector('#submit-form')
 const loginForm = document.querySelector("#not-logged-in")
@@ -22,6 +23,10 @@ const logoutButton = document.querySelector('#logout-button')
 const captionInput = document.querySelector('#caption-input')
 const locationInput = document.querySelector('#location-input')
 const cardInnerHTML = document.querySelector('#card')
+const friendsList = document.querySelector("#select-friend")
+const myMap = document.querySelector(".my-button")
+const loginBrand = document.querySelector("#login-brand")
+const p = document.querySelector("p")
 
 //CREATE HTML SECRET SCRIPT TAG
 const googleApi = document.createElement('script')

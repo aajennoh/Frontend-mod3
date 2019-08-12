@@ -25,3 +25,7 @@ cardInnerHTML.addEventListener('click', function(event) {
 loginForm.addEventListener("submit", login)
 
 logoutButton.addEventListener('click', logout)
+
+friendsList.addEventListener("change", fetchSpecificUser)
+
+myMap.addEventListener("click", backToMyMap)

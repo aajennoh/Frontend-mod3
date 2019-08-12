@@ -4,6 +4,8 @@ function addLocationToArray(){
         initMap()
         mapAndSubmit.style.display = "block"
         loginForm.style.display = "none"
+        loginBrand.style.display = "none"
+        p.style.display = "none"
         fetch("http://localhost:3000/api/v1/locations")
         .then(response => response.json())
         .then(data => data.map(location => {
@@ -14,6 +16,7 @@ function addLocationToArray(){
         }))
     } else {
         loginForm.style.display = "block"
+        loginBrand.style.display = "block"
         mapAndSubmit.style.display = "none"
     }
 }
@@ -70,7 +73,6 @@ function updateLocation(){
     }).then(response => response.json())
     .then(data => {
         currentLocation = data
-        console.log(data)
         renderCard(data)
     })
 }
@@ -81,7 +83,7 @@ function findLocation(){
     .then(data => data.find(location => location.latitude === currentLocation.title.split(', ')[0] && location.longitude === currentLocation.title.split(', ')[1] && location.user.id === currentUser.id))
     .then(loc => {
         currentLocation = loc
-        console.log(loc)
+        console.log(currentUser)
         renderCard(loc)
     })
 }
@@ -108,6 +110,7 @@ function login(e){
     .then(res => res.json())
     .then(json => {
         currentUser = json;
+        loggedInUser = json;
         addLocationToArray()
     })
 }
@@ -139,6 +142,28 @@ function logout(){
         currentUser = null
         currentUsername = null
         currentUseremail = null
+        loggedInUser = null
         addLocationToArray()
     })
+}
+
+function fetchAllUsers(){
+    fetch("http://localhost:3000/api/v1/users")
+    .then(response => response.json())
+    .then(data => {
+        return data.filter(user => user.id !== loggedInUser.id)
+    }).then(users => friendList(users))
+}
+
+function fetchSpecificUser(userId){
+    fetch(`http://localhost:3000/api/v1/users/${parseInt(userId.target.value)}`)
+    .then(response => response.json())
+    .then(userResponse => {
+        locations = []
+        userResponse.locations.forEach(location => {
+            locations.push({lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)})
+        }) 
+        currentUser = userResponse
+        return locations
+    }).then(initMap)
 }
